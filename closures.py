@@ -1,8 +1,7 @@
-def wrapper(y):
-	def closure(x):
+def foo(y):
+	def bar(x):
 		return x + y
-	return closure
+	return bar
 
-obj = wrapper(1)
-print obj(2)
-print obj(3)
+b = foo(1)
+print b(2)
