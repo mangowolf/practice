@@ -188,3 +188,10 @@ test_val1 = 25
 test_val2 = 15
 print binary_search(test_list, test_val1)
 print binary_search(test_list, test_val2)
+
+"""Recursion practice with the Fibonacci sequence."""
+
+def get_fib(position):
+    if position == 0 or position == 1:
+        return position
+    return get_fib(position - 1) + get_fib(position - 2)
