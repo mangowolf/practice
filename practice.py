@@ -195,3 +195,21 @@ def get_fib(position):
     if position == 0 or position == 1:
         return position
     return get_fib(position - 1) + get_fib(position - 2)
+
+"""Quick Sort Practice"""
+"""Implement quick sort in Python.
+Input a list.
+Output a sorted list."""
+def quicksort(array):
+    pivot = array[-1]
+    n = len(array)
+    i = n - 2
+    while(pivot < array[0]):
+        array[n-1] = array[0]
+        array[0] = array[n-2]
+        array[n-2] = pivot
+        i -= 1
+        return array
+
+test = [21, 4, 1, 3, 9, 20, 25, 6, 21, 14]
+print quicksort(test)
