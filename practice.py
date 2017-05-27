@@ -204,12 +204,21 @@ def quicksort(array):
     pivot = array[-1]
     n = len(array)
     i = n - 2
-    while(pivot < array[0]):
-        array[n-1] = array[0]
-        array[0] = array[n-2]
-        array[n-2] = pivot
-        i -= 1
-        return array
+    def compare(pivot,n, i):
+        while(pivot < array[0]):
+            array[n-1] = array[0]
+            print array
+            array[0] = array[n-2]
+            print array
+            array[n-2] = pivot
+            print pivot
+            print i
+            i -= 1
+            n -= 1
+        pivot = array[i-1]
+        print array
+        return compare(pivot,n,i)
+    return compare(pivot,n,i)
 
 test = [21, 4, 1, 3, 9, 20, 25, 6, 21, 14]
 print quicksort(test)
