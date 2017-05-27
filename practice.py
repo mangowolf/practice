@@ -222,3 +222,12 @@ def quicksort(array):
 
 test = [21, 4, 1, 3, 9, 20, 25, 6, 21, 14]
 print quicksort(test)
+
+#Practice with dictionaries
+locations = {'North America': {'USA': ['Mountain View']}}
+locations['North America']['USA'].append('Atlanta')
+locations['Asia'] = {'India': ['Bangalore']}
+locations['Asia']['China'] = ['Shanghai']
+locations['Africa'] = {'Egypt': ['Cairo']}
+
+print locations
