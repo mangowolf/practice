@@ -17,13 +17,15 @@ def foo(y):
 b = foo(1)
 print b(2)
 
-'''"get_position" returns the element at a certain position.
+"""The LinkedList code from before is provided below.
+Add three functions to the LinkedList.
+"get_position" returns the element at a certain position.
 The "insert" function will add an element to a particular
 spot in the list.
 "delete" will delete the first element with that
 particular value.
 Then, use "Test Run" and "Submit" to run the test cases
-at the bottom.'''
+at the bottom."""
 
 class Element(object):
     def __init__(self, value):
@@ -47,15 +49,13 @@ class LinkedList(object):
         """Get an element from a particular position.
         Assume the first position is "1".
         Return "None" if position is not in the list."""
-        counter = 1
-        current = self.head
         if position < 1:
             return None
-        while current and counter <= position:
-            if counter == position:
+        current = self.head
+        for i in range(1,position+1):
+            if i == position:
                 return current
             current = current.next
-            counter += 1
         return None
     
     def insert(self, new_element, position):
@@ -63,32 +63,12 @@ class LinkedList(object):
         Assume the first position is "1".
         Inserting at position 3 means between
         the 2nd and 3rd elements."""
-        counter = 1
-        current = self.head
-        if position > 1:
-            while current and counter < position:
-                if counter == position - 1:
-                    new_element.next = current.next
-                    current.next = new_element
-                current = current.next
-                counter += 1
-        elif position == 1:
-            new_element.next = self.head
-            self.head = new_element
+        pass
     
     
     def delete(self, value):
         """Delete the first node with a given value."""
-        current = self.head
-        previous = None
-        while current.value != value and current.next:
-            previous = current
-            current = current.next
-        if current.value == value:
-            if previous:
-                previous.next = current.next
-            else:
-                self.head = current.next
+        pass
 
 # Test cases
 # Set up some Elements
