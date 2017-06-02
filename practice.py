@@ -116,15 +116,23 @@ print ll.get_position(2).value
 # Should print 3 now
 print ll.get_position(3).value
 
+"""Add a couple methods to our LinkedList class,
+and use that to implement a Stack.
+You have 4 functions below to fill in:
+insert_first, delete_first, push, and pop.
+Think about this while you're implementing:
+why is it easier to add an "insert_first"
+function than just use "append"?"""
+
 class Element(object):
     def __init__(self, value):
         self.value = value
         self.next = None
-
+        
 class LinkedList(object):
     def __init__(self, head=None):
         self.head = head
-
+        
     def append(self, new_element):
         current = self.head
         if self.head:
@@ -135,27 +143,54 @@ class LinkedList(object):
             self.head = new_element
 
     def insert_first(self, new_element):
-        new_element.next = self.head
+        "Insert new element as the head of the LinkedList"
+        current = self.head
+        print current
         self.head = new_element
+        print self.head
+        new_element.next = current
+        print new_element.next
 
     def delete_first(self):
-        if self.head:
-            deleted_element = self.head
-            temp = deleted_element.next
-            self.head = temp
-            return deleted_element
-        else:
-            return None
+        "Delete the first (head) element in the LinkedList as return it"
+        current = self.head
+        self.head = current.next
+        previous = current
+        previous.next = None
+        current = self.head
+        return previous
 
 class Stack(object):
     def __init__(self,top=None):
         self.ll = LinkedList(top)
 
     def push(self, new_element):
-        self.ll.insert_first(new_element)
+        "Push (add) a new element onto the top of the stack"
+        self.ll.append(new_element)
 
     def pop(self):
+        "Pop (remove) the first element off the top of the stack and return it"
         return self.ll.delete_first()
+    
+# Test cases
+# Set up some Elements
+e1 = Element(1)
+e2 = Element(2)
+e3 = Element(3)
+e4 = Element(4)
+
+# Start setting up a Stack
+stack = Stack(e1)
+
+# Test stack functionality
+stack.push(e2)
+stack.push(e3)
+print stack.pop().value
+print stack.pop().value
+print stack.pop().value
+print stack.pop()
+stack.push(e4)
+print stack.pop().value
 
 """You're going to write a binary search function.
 You should use an iterative approach - meaning
