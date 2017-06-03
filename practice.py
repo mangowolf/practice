@@ -153,12 +153,15 @@ class LinkedList(object):
 
     def delete_first(self):
         "Delete the first (head) element in the LinkedList as return it"
-        current = self.head
-        self.head = current.next
-        previous = current
-        previous.next = None
-        current = self.head
-        return previous
+        if self.head:
+            current = self.head
+            self.head = current.next
+            previous = current
+            previous.next = None
+            current = self.head
+            return previous
+        else:
+            return None
 
 class Stack(object):
     def __init__(self,top=None):
