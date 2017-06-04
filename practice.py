@@ -269,6 +269,11 @@ def get_fib(position):
         return position
     return get_fib(position - 1) + get_fib(position - 2)
 
+# Test cases
+print get_fib(9)
+print get_fib(11)
+print get_fib(0)
+
 """Quick Sort Practice"""
 """Implement quick sort in Python.
 Input a list.
@@ -296,7 +301,6 @@ def quicksort(array):
 test = [21, 4, 1, 3, 9, 20, 25, 6, 21, 14]
 print quicksort(test)
 
-#Practice with dictionaries
 """Time to play with Python dictionaries!
 You're going to work on a dictionary that
 stores cities by country and continent.
@@ -320,13 +324,18 @@ locations['Asia'] = {'India': ['Bangalore']}
 locations['Asia']['China'] = ['Shanghai']
 locations['Africa'] = {'Egypt': ['Cairo']}
 
-print locations
 """Print the following (using "print").
 1. A list of all cities in the USA in
 alphabetic order."""
 
-for key in sorted(locations.iterkeys()):
-    print "%s: %s" % (key, locations[key])
+mydict = locations['North America']['USA']
+sortedDict = sorted(mydict)
+print '1'
+for item in sortedDict:
+    print item
+
+"""for key in sorted(mydict.iterkeys()):
+    print "%s: %s" % (key, mydict[key])"""
 """2. All cities in Asia, in alphabetic
 order, next to the name of the country.
 In your output, label each answer with a number
@@ -337,3 +346,14 @@ American City
 2
 Asian City - Country
 Asian City - Country"""
+
+print '2'
+cities = []
+for country in locations['Asia']:
+    ctry = str(country)
+    for city in locations['Asia'][ctry]:
+        cityCountry = str(city) + " - " + ctry
+        cities.append(cityCountry)
+sortedCities = sorted(cities)
+for sCity in sortedCities:
+    print sCity
