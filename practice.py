@@ -494,7 +494,24 @@ class BST(object):
                     current.left = Node(new_val)
 
     def search(self, find_val):
-        return False
+        if self.search_helper(self.root, find_val):
+            return True
+        else:
+            return False
+            
+    def search_helper(self, current, find_val):
+        if current.value == find_val:
+            return True
+        if find_val < current.value:
+            if current.left:
+                self.search_helper(current.left, find_val)
+            else:
+                return False
+        elif find_val > current.value:
+            if current.right:
+                self.search_helper(current.right, find_val)
+            else:
+                return False
     
 # Set up tree
 tree = BST(4)
