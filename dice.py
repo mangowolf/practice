@@ -15,12 +15,17 @@ def hello_world():
 
 @app.route('/JSON')
 def rollDice():
+	numOfDie = 2
+	die = 0
+	list = {}
 	def genNumber():
 		a = random.randrange(1,6)
 		return a
+	for die in range(die,numOfDie):
+		dieRoll = genNumber()
+		list[str(die)] = dieRoll
 
-	z = genNumber() + genNumber()
-	return jsonify(z)
+	return jsonify(list)
 
 if __name__ == '__main__':
 	app.debug = True
