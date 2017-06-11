@@ -571,14 +571,12 @@ class Graph(object):
         """Don't return a list of edge objects!
         Return a list of triples that looks like this:
         (Edge Value, From Node Value, To Node Value)"""
-        edgeLength = len(self.edges)
         edgeArray = self.edges
         edgeTupleArray = []
-        for idx, edge in enumerate(edgeArray):
-            print edge.value, edge.node_from.value, edge.node_to.value
-            string = str(edge.value) + str(edge.node_from.value) + str(edge.node_to.value)
-            edgeTupleArray[idx] = string
-        return edgeArray
+        for edge in edgeArray:
+            tuple = (edge.value, edge.node_from.value, edge.node_to.value)
+            edgeTupleArray.append(tuple)
+        return edgeTupleArray
 
     def get_adjacency_list(self):
         """Don't return any Node or Edge objects!
@@ -588,8 +586,17 @@ class Graph(object):
         Each section in the list will store a list
         of tuples that looks like this:
         (To Node, Edge Value)"""
-        return []
-    
+        edgeList = self.get_edge_list()
+        nodeArray = self.nodes
+        edgeAdjArray = [None]
+        for idx, edge in enumerate(edgeList):
+            nodeVal = edge[1]
+            for node in nodeArray:
+                if node.value == nodeVal:
+                    tuple = (edge[2],edge[0])
+                    edgeAdjArray.append(tuple)
+        return edgeAdjArray
+        
     def get_adjacency_matrix(self):
         """Return a matrix, or 2D list.
         Row numbers represent from nodes,
