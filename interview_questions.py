@@ -1,6 +1,9 @@
 ##############################
 ######TECHNICAL INTERVIEW QUESTIONS
 ###QUESTION 1
+"""Given two strings s and t, determine whether some anagram of t is a substring of s. 
+For example: if s = "udacity" and t = "ad", then the function returns True. 
+Your function definition should look like: question1(s, t) and return a boolean True or False."""
 
 import cgi
 
@@ -25,95 +28,54 @@ def question(s,t):
 	else:
 		return False
 
-print question('udacity', 'ad')
+"""print question('udacity', 'ad')
 print question('1up2', 21)
-print question('\delete', 't\\ele')
+print question('\delete', 't\ele')
 print question('Nordic', 'Ndd')
 print question('Nordic', 'ndd')
 print question('Nordic', 'Nd')
 print question('Nordic', 'nd')
-
-
-
-"""
-import cgi
-
-def question(s,t):
-	lowerS = str.lower(str(cgi.escape(s)))
-	lowerT = str.lower(str(cgi.escape(t)))
-	letterArray = list(lowerS)
-	subLetterArray = list(lowerT)
-	wordLetterDict = {i:letterArray.count(i) for i in letterArray}
-	subWordLetterDict = {i:subLetterArray.count(i) for i in subLetterArray}
-	count = 0
-	
-	print letterArray
-	print subLetterArray
-	print wordLetterDict
-	print subWordLetterDict
-	for subLetter in subLetterArray:
-		subValue = subWordLetterDict.get(subLetter)
-		if subValue:
-			for letter in letterArray:
-				value = wordLetterDict.get(letter)
-				print subLetter, letter, value, subValue
-				if subLetter == letter and value >= subValue:
-					count += 1
-			print count
-	if count == len(subLetterArray):
-		return True
-	else:
-		return False
-
-#print question('udacity', 'ad')
-#print question('1up2', 21)
-print question('\delete', 'tele')
-#print question('Nordic', 'Ndd')
-#print question('Nordic', 'ndd')
-#print question('Nordic', 'Nd')
-#print question('Nordic', 'nd')
 """
 
-"""import cgi
+#Efficiency
+#O(n^2)
 
-def question(s,t):
 
-	wordArray = list(str(s))
-	subWordArray = list(str(t))
-	subWordList = {}
-	anagram = False
-	letCountList = {}
-	cnt = 0
+###QUESTION 2
+"""Given a string a, find the longest palindromic substring contained in a. 
+Your function definition should look like question2(a), and return a string."""
 
-	for let in wordArray:
-		count = 0
-		letCountList[let] = count
-		for l in wordArray:
-			if let == l:
-				count += 1
-				letCountList[let] = count
+#Palindromes: redivider, noon, civic, radar, level, rotor, kayak, reviver, racecar, redder, madam, and refer
+import math
 
-	for swLetter in subWordArray:
-		letLeft = letCountList[swLetter]
-		print letLeft
-		for sLetter in wordArray:
-			if swLetter == sLetter and letLeft > 0:
-				subWordList[swLetter] = True
-				letLeft -= 1
-			else:
-				subWordList[swLetter] = False
+def question2(a):
+	letterArray = list(a)
+	iterations = int(math.ceil(len(a)/2)) + 1
+	longPal = []
 
-	print subWordList
-	for key in subWordList:
-		if subWordList[key] == True:
-			cnt += 1
-	if cnt == len(subWordList):
-		return True
-	else:
-		return False
+	if len(a)%2 == 0:
+		left = len(a)/2 - 1
+		right = left + 1
+	elif len(a)%2 > 0:
+		left = int(round(len(a)/2,0)) - 1
+		right = left + 2
+		longPal.append(letterArray[left+1])
+		
+	for i in range(1,iterations):
+		if letterArray[left] == letterArray[right]:
+			longPal.insert(0,letterArray[left])
+			longPal.append(letterArray[right])
+			left -= 1
+			right += 1
+		else:
+			palindrome = "".join(longPal)
+			return palindrome
 
-print question('udacity', 'ad')
-print question('1up2', 21)
-print question('\delete', 'tele')
-print question('Nordic', 'dd')
-"""
+	palindrome = "".join(longPal)
+	return palindrome
+
+
+print question2('redivider')
+#should print out redivider
+print question2('forgeeksskeegfor')
+#should print out geeksskeeg
