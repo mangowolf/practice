@@ -1,3 +1,5 @@
+import cgi
+
 list = ['banana', 'apple', 'cherry']
 def listGen(list):
 	string = ""
@@ -870,3 +872,39 @@ pp.pprint(graph.bfs_names(2))
 # Should print:
 # Breadth First Search
 # ['London', 'Shanghai', 'Berlin', 'Sao Paolo', 'Mountain View', 'San Francisco']
+
+
+##############################
+######TECHNICAL INTERVIEW QUESTIONS
+###QUESTION 1
+
+import cgi
+
+def question(s,t):
+	lowerS = cgi.escape(str.lower(str(s)))
+	lowerT = cgi.escape(str.lower(str(t)))
+	letterArray = list(lowerS)
+	subLetterArray = list(lowerT)
+	wordLetterDict = {i:letterArray.count(i) for i in letterArray}
+	subWordLetterDict = {i:subLetterArray.count(i) for i in subLetterArray}
+	count = 0
+
+	for subLetter in subWordLetterDict:
+		subValue = subWordLetterDict.get(subLetter)
+		if subValue:
+			for letter in wordLetterDict:
+				value = wordLetterDict.get(letter)
+				if subLetter == letter and value >= subValue:
+					count += 1
+	if count == len(subWordLetterDict):
+		return True
+	else:
+		return False
+
+print question('udacity', 'ad')
+print question('1up2', 21)
+print question('\delete', 't\ele')
+print question('Nordic', 'Ndd')
+print question('Nordic', 'ndd')
+print question('Nordic', 'Nd')
+print question('Nordic', 'nd')
