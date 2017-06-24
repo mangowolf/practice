@@ -79,3 +79,6 @@ print question2('redivider')
 #should print out redivider
 print question2('forgeeksskeegfor')
 #should print out geeksskeeg
+
+#Efficiency
+#O(n)
