@@ -570,24 +570,13 @@ class Graph(object):
         self.edges.append(new_edge)
 
     def get_edge_list(self):
-        """Don't return a list of edge objects!
-        Return a list of triples that looks like this:
-        (Edge Value, From Node Value, To Node Value)"""
-        edgeArray = self.edges
-        edgeTupleArray = []
-        for edge in edgeArray:
-            tuple = (edge.value, edge.node_from.value, edge.node_to.value)
-            edgeTupleArray.append(tuple)
-        return edgeTupleArray
+        edge_list = []
+        for edge_object in self.edges:
+            edge = (edge_object.value, edge_object.node_from.value, edge_object.node_to.value)
+            edge_list.append(edge)
+        return edge_list
 
     def get_adjacency_list(self):
-        """Don't return any Node or Edge objects!
-        You'll return a list of lists.
-        The indecies of the outer list represent
-        "from" nodes.
-        Each section in the list will store a list
-        of tuples that looks like this:
-        (To Node, Edge Value)"""
         max_index = self.find_max_index()
         adjacency_list = [None] * (max_index + 1)
         for edge_object in self.edges:
@@ -596,7 +585,14 @@ class Graph(object):
             else:
                 adjacency_list[edge_object.node_from.value] = [(edge_object.node_to.value, edge_object.value)]
         return adjacency_list
-    
+
+    def get_adjacency_matrix(self):
+        max_index = self.find_max_index()
+        adjacency_matrix = [[0 for i in range(max_index + 1)] for j in range(max_index + 1)]
+        for edge_object in self.edges:
+            adjacency_matrix[edge_object.node_from.value][edge_object.node_to.value] = edge_object.value
+        return adjacency_matrix
+
     def find_max_index(self):
         max_index = -1
         if len(self.nodes):
@@ -604,14 +600,6 @@ class Graph(object):
                 if node.value > max_index:
                     max_index = node.value
         return max_index
-        
-    def get_adjacency_matrix(self):
-        """Return a matrix, or 2D list.
-        Row numbers represent from nodes,
-        column numbers represent to nodes.
-        Store the edge values in each spot,
-        and a 0 if no edge exists."""
-        return []
 
 graph = Graph()
 graph.insert_edge(100, 1, 2)
@@ -947,3 +935,5 @@ print question2('redivider')
 #should print out redivider
 print question2('forgeeksskeegfor')
 #should print out geeksskeeg
+
+##
