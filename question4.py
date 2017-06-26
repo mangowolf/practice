@@ -26,25 +26,6 @@ class BST(object):
 				current = current.right
 				return self.insert_helper(current, new_val)
 
-	def search(self,find_val):
-		return self.search_helper(self.root,find_val)
-
-	def search_helper(self,current,find_val):
-		if find_val == current.value:
-			return current.value
-		elif find_val < current.value:
-			if current.value:
-				current = current.left
-				return self.search_helper(current,find_val)
-			else:
-				return False
-		elif find_val > current.value:
-			if current.value:
-				current = current.right
-				return self.search_helper(current,find_val)
-			else:
-				return False
-
 #Create the Binary search tree based on a given matrix and identified root value
 def createBST(T, r):
 	matrix = T
@@ -59,23 +40,28 @@ def createBST(T, r):
 
 def question4(T,r,n1,n2):
 
-	tree = createBST(T,r).root
+	parent = createBST(T,r).root
 	def lca(root,n1,n2):
 
 		#Base Case
 		if root is None:
 			return None
 
+		"""Check if the the parent root value is greater than both children,
+		if so, recursively check until the base case is found"""
 		if(root.value > n1 and root.value >n2):
 			return lca(root.left, n1, n2)
 
+		"""Check if the parent root value is less than both children,
+		if so, recursively check until the base case is found"""
 		if(root.value < n1 and root.value < n2):
 			return lca(root.right, n1, n2)
 
+		"""When the common ancestor is found, return the root value."""
 		return root
 
-	t = lca(tree,n1,n2)
-	return t.value
+	commonAncestor = lca(parent,n1,n2)
+	return commonAncestor.value
 
 print question4([[0, 1, 0, 0, 0],
            [0, 0, 0, 0, 0],
@@ -85,15 +71,3 @@ print question4([[0, 1, 0, 0, 0],
           3,
           1,
           4)
-
-"""
-#Initialize Tree
-tree = BST(4)
-tree.insert(2)
-tree.insert(1)
-tree.insert(3)
-tree.insert(5)
-
-#Test search
-print tree.search(4)
-print tree.search(3)"""
