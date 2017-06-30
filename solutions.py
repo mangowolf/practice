@@ -7,7 +7,7 @@ Your function definition should look like: question1(s, t) and return a boolean 
 
 import cgi
 
-def question(s,t):
+def question1(s,t):
     try:
         if s and t:
         	lowerS = cgi.escape(str.lower(s))
@@ -35,11 +35,11 @@ def question(s,t):
         return "Invalid input, only string accepted."
 
 #TEST CASES
-print question('udacity', 'ad') #Should return True
-print question('1up2', 21) #Should return error message, "Invalid input, only string accepted."
-print question('\delete', 't\ele') #Should return True
-print question('Nordic', 'Ndd') #Should return False
-print question('','')
+print question1('udacity', 'ad') #Should return True
+print question1('1up2', 21) #Should return error message, "Invalid input, only string accepted."
+print question1('\delete', 't\ele') #Should return True
+print question1('Nordic', 'Ndd') #Should return False
+print question1('','')
 
 #EFFICIENCY
 #O(n^2)
