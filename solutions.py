@@ -8,36 +8,40 @@ Your function definition should look like: question1(s, t) and return a boolean 
 import cgi
 
 def question(s,t):
-	lowerS = cgi.escape(str.lower(str(s)))
-	lowerT = cgi.escape(str.lower(str(t)))
-	letterArray = list(lowerS)
-	subLetterArray = list(lowerT)
-	wordLetterDict = {i:letterArray.count(i) for i in letterArray}
-	subWordLetterDict = {i:subLetterArray.count(i) for i in subLetterArray}
-	count = 0
+    try:
+        if s and t:
+        	lowerS = cgi.escape(str.lower(s))
+        	lowerT = cgi.escape(str.lower(t))
+        	letterArray = list(lowerS)
+        	subLetterArray = list(lowerT)
+        	wordLetterDict = {i:letterArray.count(i) for i in letterArray}
+        	subWordLetterDict = {i:subLetterArray.count(i) for i in subLetterArray}
+        	count = 0
 
-	for subLetter in subWordLetterDict:
-		subValue = subWordLetterDict.get(subLetter)
-		if subValue:
-			for letter in wordLetterDict:
-				value = wordLetterDict.get(letter)
-				if subLetter == letter and value >= subValue:
-					count += 1
-	if count == len(subWordLetterDict):
-		return True
-	else:
-		return False
+        	for subLetter in subWordLetterDict:
+        		subValue = subWordLetterDict.get(subLetter)
+        		if subValue:
+        			for letter in wordLetterDict:
+        				value = wordLetterDict.get(letter)
+        				if subLetter == letter and value >= subValue:
+        					count += 1
+        	if count == len(subWordLetterDict):
+        		return True
+        	else:
+        		return False
+        else:
+            return "Invalid input, only string accepted."
+    except:
+        return "Invalid input, only string accepted."
 
 #TEST CASES
-print question('udacity', 'ad')
-print question('1up2', 21)
-print question('\delete', 't\ele')
-print question('Nordic', 'Ndd')
-print question('Nordic', 'ndd')
-print question('Nordic', 'Nd')
-print question('Nordic', 'nd')
+print question('udacity', 'ad') #Should return True
+print question('1up2', 21) #Should return error message, "Invalid input, only string accepted."
+print question('\delete', 't\ele') #Should return True
+print question('Nordic', 'Ndd') #Should return False
+print question('','')
 
-#Efficiency
+#EFFICIENCY
 #O(n^2)
 
 
@@ -49,39 +53,49 @@ Your function definition should look like question2(a), and return a string."""
 import math
 
 def question2(a):
-	letterArray = list(a)
-	iterations = int(math.ceil(len(a)/2)) + 1
-	longPal = []
+    try:
+        if a:
+        	letterArray = list(a)
+        	iterations = int(math.ceil(len(a)/2)) + 1
+        	longPal = []
+        	if len(a)%2 == 0:
+        		left = len(a)/2 - 1
+        		right = left + 1
+        	elif len(a)%2 > 0:
+        		left = int(round(len(a)/2,0)) - 1
+        		right = left + 2
+        		longPal.append(letterArray[left+1])
+        		
+        	for i in range(1,iterations):
+        		if letterArray[left] == letterArray[right]:
+        			longPal.insert(0,letterArray[left])
+        			longPal.append(letterArray[right])
+        			left -= 1
+        			right += 1
+        		else:
+        			palindrome = "".join(longPal)
+        			return palindrome
 
-	if len(a)%2 == 0:
-		left = len(a)/2 - 1
-		right = left + 1
-	elif len(a)%2 > 0:
-		left = int(round(len(a)/2,0)) - 1
-		right = left + 2
-		longPal.append(letterArray[left+1])
-		
-	for i in range(1,iterations):
-		if letterArray[left] == letterArray[right]:
-			longPal.insert(0,letterArray[left])
-			longPal.append(letterArray[right])
-			left -= 1
-			right += 1
-		else:
-			palindrome = "".join(longPal)
-			return palindrome
-
-	palindrome = "".join(longPal)
-	return palindrome
+        	palindrome = "".join(longPal)
+        	return palindrome
+        else:
+            return "Invalid input, please input a string value."
+    except:
+        return "Invalid input, please input a string value."
 
 #TEST CASES
 print question2('redivider')
 #should print out redivider
 print question2('forgeeksskeegfor')
 #should print out geeksskeeg
+print question2('')
+#should output "Invalid input please input a string value."
+print question2(3)
+#should output "Invalid input please input a string value."
 
-#Efficiency
+#EFFICIENCY
 #O(n)
+
 
 """QUESTION 3
 Given an undirected graph G, find the minimum spanning tree within G. A minimum spanning tree connects all vertices in a graph with the smallest possible total weight of edges. Your function should take in and return an adjacency list structured like this:
@@ -135,23 +149,31 @@ def kruskalAlgorithm(graph):
 #Function taking in adjacency list graph and returning minimum spanning tree as an adjacency matrix
 def question3(G):
 
-    graph = {
-        'vertices': G.keys(),
-        'edges': []
-    }
+    try:
+        if G:
+            graph = {
+                'vertices': G.keys(),
+                'edges': []
+            }
 
-    for v in G:
-        for u in xrange(0,len(G[v])):
-            edge = (G[v][u][1],v,G[v][u][0])
-            graph['edges'].append(edge)
-    
-    mst = kruskalAlgorithm(graph)
+            for v in G:
+                for u in xrange(0,len(G[v])):
+                    edge = (G[v][u][1],v,G[v][u][0])
+                    graph['edges'].append(edge)
+            
+            mst = kruskalAlgorithm(graph)
 
-    adjList = {}
-    for i in xrange(0,len(mst)):
-        adjList[mst[i][1]] = [mst[i][2],mst[i][0]]
+            adjList = {}
+            for i in xrange(0,len(mst)):
+                adjList[mst[i][1]] = [mst[i][2],mst[i][0]]
 
-    return adjList
+            return adjList
+        else:
+            return "Invalid input, please enter in a list."
+    except:
+        s = "Input must be an adjacency list indicating the, 'from vertice', 'to vertice', and 'weight'"
+        s += " in the format {'key':[('string', int)]}"
+        return  s
 
 #TEST CASE
 G = {'A': [('B', 2)],
@@ -159,8 +181,15 @@ G = {'A': [('B', 2)],
  'C': [('B', 5)]}
 
 print question3(G)
+#should print out minimum spanning tree adjacency list: {'A':['B',2],'B':['C',5]}
+print question3('')
+#should print out error, "Invalid input, please enter in a list."
+print question3(123)
+#should print out the error, "Input must be an adjacency list indicating the, 'from vertice', 'to vertice', and 'weight'
+#in the format {'key':[('string',int)]}"
 
-#Efficiency O(n^2)
+#EFFICIENCY
+#O(n^2)
 
 
 """QUESTION 4
@@ -224,29 +253,39 @@ def createBST(T, r):
 	return bst
 
 def question4(T,r,n1,n2):
+    #if isinstance(T,list) and T and isinstance(r,int):
+    try:
+        if T and r and n1 and n2:
+        	parent = createBST(T,r).root
+        	def lca(root,n1,n2):
 
-	parent = createBST(T,r).root
-	def lca(root,n1,n2):
+        		#Base Case
+        		if root is None:
+        			return None
 
-		#Base Case
-		if root is None:
-			return None
+        		"""Check if the the parent root value is greater than both children,
+        		if so, recursively check until the base case is found"""
+        		if(root.value > n1 and root.value >n2):
+        			return lca(root.left, n1, n2)
 
-		"""Check if the the parent root value is greater than both children,
-		if so, recursively check until the base case is found"""
-		if(root.value > n1 and root.value >n2):
-			return lca(root.left, n1, n2)
+        		"""Check if the parent root value is less than both children,
+        		if so, recursively check until the base case is found"""
+        		if(root.value < n1 and root.value < n2):
+        			return lca(root.right, n1, n2)
 
-		"""Check if the parent root value is less than both children,
-		if so, recursively check until the base case is found"""
-		if(root.value < n1 and root.value < n2):
-			return lca(root.right, n1, n2)
+        		"""When the common ancestor is found, return the root value."""
+        		return root
 
-		"""When the common ancestor is found, return the root value."""
-		return root
-
-	commonAncestor = lca(parent,n1,n2)
-	return commonAncestor.value
+        	commonAncestor = lca(parent,n1,n2)
+        	return commonAncestor.value
+        else:
+            return "Invalid input."
+    except:
+        s = "Invalid input. Argument must contain four inputs: "
+        s += "1. An adjacency matrix - Must contain 1 indicating children,"
+        s += " 2. the root, 3. first child, 4. second child." + "Items 2-4 must be integers."
+        return s
+        
 
 #TEST CASE
 print question4([[0, 1, 0, 0, 0],
@@ -257,8 +296,16 @@ print question4([[0, 1, 0, 0, 0],
           3,
           1,
           4)
+#Should print out 3 indicating the root as the parent.
+print question4([[]],1,'a',"")
+#should print out error message, Invalid input. Argument must contain four inputs: 1. An adjacency matrix - Must contain 1 indicating children,
+#2. the root, 3. first child, 4. second child." + "Items 2-4 must be integers.
+print question4([[]],'','','')
+#should print error, invalid input.
 
-#Efficiency O(n) + O(log n)
+#EFFICIENCY
+#O(n) + O(log n)
+
 
 #QUESTION 5
 """Find the element in a singly linked list that's m elements from the end. 
@@ -270,6 +317,7 @@ node in the linked list. Return the value of the node at that position.
 
 #Definition for Node class to instantiate node object
 class Node(object):
+
     ##Defines attributes of the object
 	def __init__(self,data):
 		self.data = data
@@ -277,13 +325,15 @@ class Node(object):
 
 #Helper function to generate nodes based on argument number
 def generateNode(num):
-    ##Creates nodes up to the number provided
-
-    nodeArray = {}
-    for x in xrange(1,num+1):
-        e = Node(x)
-        nodeArray[x] = e
-    return nodeArray
+    try:
+        ##Creates nodes up to the number provided
+        nodeArray = {}
+        for x in xrange(1,num+1):
+            e = Node(x)
+            nodeArray[x] = e
+        return nodeArray
+    except:
+        return "Invalid input, must be an integer."
 
 #Defines a Linked List class
 class LinkedList(object):
@@ -292,23 +342,25 @@ class LinkedList(object):
         self.head = head
 
     def append(self, new_element):
-        current = self.head
-        if self.head:
-            while current.next:
-                current = current.next
-            current.next = new_element
-        else:
-            self.head = new_element
+        try:
+            current = self.head
+            if self.head:
+                while current.next:
+                    current = current.next
+                current.next = new_element
+            else:
+                self.head = new_element
+        except:
+            return "Invalid input, must be a node object."
 
-    def getPosition(self,position):
+    def getPosition(self,start,position):
         """Get a node from a particular position.
         Assume the first position is "1".
         Return "None" if position is not in the list."""
-        if type(position) != int:
-            return "Error: Only non-negative integers accepted"
-        current = self.head
+        #current = self.head
+        current = start
         cPosition = 1
-        if self.head and position > 0:
+        if start and position > 0:
             while current:
                 if cPosition != position:
                     current = current.next
@@ -331,10 +383,16 @@ class LinkedList(object):
         else:
             return None
 
-    def question5(self,ll,m):
-        length = self.LinkedListLength()
-        position = length - m + 1
-        return self.getPosition(position).data
+def question5(ll,m):
+    try:
+        if ll and m and isinstance(m,int):
+            length = LinkedListObj.LinkedListLength()
+            position = length - m + 1
+            return LinkedListObj.getPosition(ll,position).data
+        else:
+            return None
+    except:
+        return None
 
 nArray = generateNode(5)
 LinkedListObj = LinkedList(nArray[1])
@@ -344,8 +402,17 @@ LinkedListObj.append(nArray[4])
 LinkedListObj.append(nArray[5])
 
 #TEST CASE
-print LinkedListObj.question5(nArray[1],3)
+print question5(nArray[1],3)
+#Should print out 3
+print question5(nArray[1],6)
+#should print out None
+print question5('a',43)
+#should print out None
+print question5('','')
+#should print out None
+print question5(nArray[1],3.234)
+#should print out None
 
-"""Efficiency of question5() is:
-	LinkedListLength() is O(n) + self.getPosition() is O(n) = O(2n) which is approximately O(n)
- """
+#EFFICIENCY
+#LinkedListLength() is O(n) + self.getPosition() is O(n) = O(2n) which is approximately O(n)
+ 
