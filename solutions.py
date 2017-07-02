@@ -139,7 +139,7 @@ def kruskalAlgorithm(graph):
     edges = list(graph['edges'])
     edges.sort()
     for edge in edges:
-        w, v1, v2 = edge
+        v1, v2 = edge
         if find(v1) != find(v2):
             union(v1,v2)
             minimumSpanningTree.append(edge)

@@ -1,1 +1,67 @@
 Fullstack Technical Interview Question Explanations
+
+Write up an explanation for each question in a single separate text file (called "explanations.txt"). Your paragraph should not be a detailed walkthrough of the code you provided, but provide your reasoning behind decisions made in the code. For example, why did you use that data structure? You also need to explain the efficiency (time and space) of your solution
+
+-----------------------------------------------------
+Question 1:
+The reasoning behind the solution for this answer was to count the number of times a letter appears in the substring and then to check the string to see if all substring letters exist as well as if the number of instances of those letters was equal to or greater than the number of times those letters appear in the string.
+
+The logic in the code for the question1 function is as follows:
+
+1. Create a dictionary of the count of the number of letters for both the string and substring.
+2. For each letter in the substring, check if the string contains the same letters and if the string contains as many or more of each of those letters.
+3. If condition two is true, return True, otherwise return False.
+
+The approximate efficiency of the function is O(n^2) as there are two for loops in the function, so it needs to iterate over all letters n^2 times.
+
+----------------------------------------------------
+Question 2:
+The reasoning behind the solution for this answer was to figure out the midpoint of the string, then to compare the values starting from the middle outwards until they no longer matched. When they no longer matched, the longest palindrome would be determined and then returned.
+
+The logic behind the question2 function is as follows:
+
+1. Determine if the string contained an odd or even number of letters. If even, compare the middle two values, if odd, compare the two values on either side of the string.
+2. Iterate outwards from the center and compare each letter.
+3. Return when the values no longer matched or if the end of the string was reached.
+
+The efficiency of the solution is O(n/2), which approximates to O(n) as there is a single for loop.
+-----------------------------------------------------
+Question 3:
+The reasoning behind the solution for this answer was to use a well known algorithm known as Kruskals algorithm. The solution sorts all the weights of the edges, then searches through each pair of vertices connected to those edges from lowest to highest. The algorithm then creates subtrees of each connected vertice pair if they are either unconnected or if there does not contain a cycle between the edges. Eventually, the algorithm will iterate through every edge pair creating a larger and larger subtree until it finds the minimum spanning tree.
+
+The logic behind the question3 function is as follows:
+
+1. Reformat the input to create a list of vertices and edges.
+2. Input the reformatted list of vertices and edges into Kruskals Algorithm
+3. In Kruskals algorithm, sort the edges, then iterate over those edges vertices, making subtrees for each set that don't have the same root.
+4. If two subtrees don't have the same root, combine them into a larger subtree.
+5. Continue this until the minimum spanning tree is found.
+6. Once the minimum spanning tree is found, find the adjacency list and return it.
+
+The approximate efficiency of the algorithm is O(n^2).
+
+------------------------------------------------------
+Question 4:
+The reasoning behind the solution for this answer was to recursively search the tree to find when the root's value was greater than or less than both the child nodes. If a nodes value was found that met this condition, it would be the least common ancestor, otherwise, if it was not found, then by default, the root would be the lowest common ancestor.
+
+The logic behind the question4 function is as follows:
+
+1. Check to make sure the correct inputs were provided.
+2. Create the binary search tree
+3. Find the node value within the tree which was greater than or less than both the provided child values.
+4. If this node value did not exist, by default the root would be considered the lowest common ancestor.
+
+The efficiency to create the Binary tree is O(n^2), and the efficiency of the question4 lowest common ancestor is O(1) in the best case, and O(log n) in the worst case.
+
+-------------------------------------------------------
+Question 5:
+The reasoning behind the solution for this answer was to first find the length of the linked list, then subtract the mth value from the length of the list to find the mth position from the end of the list. 
+
+The logic behind the question5 function is as follows:
+1. Create the linked list object.
+2. Check if the first position and mth value exist and are valid inputs.
+3. Find the length of the linked list object.
+4. Subtract the mth value from the length of the list to find the mth position from the end.
+5. Return the value from the node in the mth position from the end.
+
+The efficiency of the question5 function consists of the efficiency of the LinkedListLength method, which is O(n) and the getPosition method which is O(n). The two functions taken together are O(2n), which approximates to O(n).
