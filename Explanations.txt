@@ -12,7 +12,7 @@ The logic in the code for the question1 function is as follows:
 2. For each letter in the substring, check if the string contains the same letters and if the string contains as many or more of each of those letters.
 3. If condition two is true, return True, otherwise return False.
 
-The approximate efficiency of the function is O(n^2) as there are two for loops in the function, so it needs to iterate over all letters n^2 times.
+The approximate efficiency of the function is O(mn) as there are two for loops in the function, so it needs to iterate over all letters m times for the string and n times for the substring. The space complexity for the solution is also O(mn) since the dictionary requires space for each letter count for the string and substring. 
 
 ----------------------------------------------------
 Question 2:
@@ -24,7 +24,8 @@ The logic behind the question2 function is as follows:
 2. Iterate outwards from the center and compare each letter.
 3. Return when the values no longer matched or if the end of the string was reached.
 
-The efficiency of the solution is O(n/2), which approximates to O(n) as there is a single for loop.
+The efficiency of the solution is O(n/2), which approximates to O(n) as there is a single for loop. The space complexity is also O(n) in the worst case, since the longPal array can grow as large as every letter in the input string.
+
 -----------------------------------------------------
 Question 3:
 The reasoning behind the solution for this answer was to use a well known algorithm known as Kruskals algorithm. The solution sorts all the weights of the edges, then searches through each pair of vertices connected to those edges from lowest to highest. The algorithm then creates subtrees of each connected vertice pair if they are either unconnected or if there does not contain a cycle between the edges. Eventually, the algorithm will iterate through every edge pair creating a larger and larger subtree until it finds the minimum spanning tree.
@@ -38,7 +39,7 @@ The logic behind the question3 function is as follows:
 5. Continue this until the minimum spanning tree is found.
 6. Once the minimum spanning tree is found, find the adjacency list and return it.
 
-The approximate efficiency of the algorithm is O(n^2).
+The approximate efficiency of the algorithm is O(n^2). The space complexity of the solution in the worst case would reach O(n^2) as well, as it recursively searches through the vertices and retains each iteration in memory until the base case is reached.
 
 ------------------------------------------------------
 Question 4:
@@ -51,7 +52,7 @@ The logic behind the question4 function is as follows:
 3. Find the node value within the tree which was greater than or less than both the provided child values.
 4. If this node value did not exist, by default the root would be considered the lowest common ancestor.
 
-The efficiency to create the Binary tree is O(n^2), and the efficiency of the question4 lowest common ancestor is O(1) in the best case, and O(log n) in the worst case.
+The efficiency to create the Binary tree is O(n^2), and the efficiency of the question4 lowest common ancestor is O(1) in the best case, and O(log n) in the worst case. The space complexity matches the time complexity as the best case would only need to allocate memory for O(1) in the best case and in the worst case the recursion through the binary search tree conditions would result in memory allocation of O(log n).
 
 -------------------------------------------------------
 Question 5:
@@ -64,4 +65,4 @@ The logic behind the question5 function is as follows:
 4. Subtract the mth value from the length of the list to find the mth position from the end.
 5. Return the value from the node in the mth position from the end.
 
-The efficiency of the question5 function consists of the efficiency of the LinkedListLength method, which is O(n) and the getPosition method which is O(n). The two functions taken together are O(2n), which approximates to O(n).
+The efficiency of the question5 function consists of the efficiency of the LinkedListLength method, which is O(n) and the getPosition method which is O(n). The two functions taken together are O(2n), which approximates to O(n). The space complexity of generating the nodes would be O(n), whereas the question5 function's space complexity would result in O(1) as no substantional additional memory allocation is required for the function.
